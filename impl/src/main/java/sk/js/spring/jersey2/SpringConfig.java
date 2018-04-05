@@ -27,20 +27,12 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("sk.js.spring.jersey2")
 @PropertySource("classpath:application.properties")
-public class SpringConfig implements EnvironmentAware {
-
+public class SpringConfig {
+    @Autowired
     private Environment environment;
 
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Override
-    public void setEnvironment(final Environment environment) {
-        this.environment = environment;
-    }
-
     @Bean
-    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         propertySourcesPlaceholderConfigurer.setLocations(new ClassPathResource("application.properties"));
         propertySourcesPlaceholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
@@ -77,7 +69,6 @@ public class SpringConfig implements EnvironmentAware {
     }
 
     @Bean
-    @Autowired
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(emf);
