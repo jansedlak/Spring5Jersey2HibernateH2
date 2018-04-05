@@ -18,7 +18,7 @@ public class DummyServiceImpl implements DummyService {
         final User newUser = new User();
         newUser.setFirstName("Janko");
         genericDao.create(newUser);
-        return "dummy name." + newUser;
+        return "Dummy name:" + newUser.getFirstName();
     }
 
 }
