@@ -14,6 +14,7 @@ public class DummyServiceImpl implements DummyService {
     private UserDaoImpl genericDao;
 
     @Transactional(readOnly = true)
+    @Override
     public String getName() {
         final User newUser = new User();
         newUser.setFirstName("Janko");
